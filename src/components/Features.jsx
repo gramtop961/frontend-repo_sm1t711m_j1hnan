@@ -1,50 +1,79 @@
 import React from 'react';
-import { Eye, Mic, Camera, Shield } from 'lucide-react';
+import { Eye, Camera, Mic, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const features = [
   {
     icon: Eye,
     title: 'Scene Narration',
-    desc: 'Understand your surroundings with natural, concise descriptions delivered through a discrete audio cue.'
+    desc: 'Hear concise descriptions of your surroundings with spatial awareness and context.',
+    hue: 'from-fuchsia-500 to-violet-500',
   },
   {
     icon: Camera,
-    title: 'Real‑time Recognition',
-    desc: 'Identify people, objects, text, and obstacles instantly with on‑device vision models tuned for speed.'
+    title: 'Object Recognition',
+    desc: 'Identify people, obstacles, signage, and everyday items in real time.',
+    hue: 'from-cyan-400 to-sky-500',
   },
   {
     icon: Mic,
-    title: 'In‑house AI Agent',
-    desc: 'Speak naturally. Your private voice assistant guides you hands‑free — no cloud required.'
+    title: 'In-house AI Agent',
+    desc: 'Ask questions and get instant, private answers. Works offline for core tasks.',
+    hue: 'from-emerald-400 to-teal-500',
   },
   {
     icon: Shield,
-    title: 'Privacy First',
-    desc: 'Local processing keeps your data secure. What you see and say stays with you.'
-  }
+    title: 'Privacy-first',
+    desc: 'On-device processing keeps your world yours. No unnecessary data leaves the glasses.',
+    hue: 'from-amber-400 to-rose-500',
+  },
 ];
 
 export default function Features() {
   return (
-    <section id="features" className="relative py-20 bg-white">
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(50%_50%_at_50%_0%,rgba(168,85,247,0.10),transparent_60%)]" />
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Designed for clarity and confidence</h2>
-          <p className="mt-3 text-gray-700">
-            Every detail is crafted to empower independence — fast feedback, gentle prompts, and reliable assistance.
-          </p>
-        </div>
+    <section id="features" className="relative bg-black text-white">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.15),transparent_60%)]" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-24">
+        <motion.h2
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl md:text-5xl font-semibold tracking-tight"
+        >
+          Built for vision. Engineered for trust.
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.05 }}
+          className="mt-3 max-w-2xl text-white/75"
+        >
+          A seamless blend of hardware and AI that augments perception without compromising privacy.
+        </motion.p>
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="group rounded-2xl border border-black/10 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-11 w-11 rounded-xl flex items-center justify-center bg-gradient-to-tr from-purple-500 via-blue-500 to-orange-400 text-white">
-                <Icon className="h-5 w-5" />
+          {features.map(({ icon: Icon, title, desc, hue }, i) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 24, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, delay: i * 0.05 }}
+              whileHover={{ y: -6 }}
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm"
+            >
+              <div className={`absolute -top-20 -right-20 h-48 w-48 rounded-full blur-3xl opacity-40 bg-gradient-to-br ${hue}`} />
+              <div className="relative z-10">
+                <div className={`inline-flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br ${hue} text-black shadow-lg shadow-black/20`}> 
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h3 className="mt-4 text-xl font-semibold">{title}</h3>
+                <p className="mt-2 text-white/75 text-sm leading-relaxed">{desc}</p>
               </div>
-              <h3 className="mt-4 font-semibold text-lg">{title}</h3>
-              <p className="mt-2 text-sm text-gray-700 leading-relaxed">{desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
